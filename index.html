@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10b981" />
+  <meta name="description" content="Proyecto de Matemática Financiera y educación para el ahorro. Identificá y calculá tus gastos hormiga." />
+  <title>Atrapando Hormigas | Educación Financiera</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container navbar">
+    <a href="./index.html" class="brand">
+      <img src="assets/icon.svg" alt="Logo Atrapando Hormigas" />
+      <span>Atrapando Hormigas</span>
+    </a>
+    <div class="nav-actions">
+      <button id="installBtn" class="btn btn-outline btn-sm" style="display: none;">
+        📲 Instalar App
+      </button>
+      <a id="btnNavSimulador" href="./app.html" data-target-tab="calculadora" class="btn btn-primary btn-sm">
+        Abrir Simulador
+      </a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <span class="badge">🐜 Matemática Financiera • 5to Año</span>
+        <h1>¿Sabés a dónde se va tu plata? <span>Atrapá tus gastos hormiga</span></h1>
+        <p>
+          Esos pequeños consumos diarios que parecen insignificantes pueden llevarse una gran parte de tu presupuesto anual. Descubrí cuánto podés ahorrar e invertir empezando hoy.
+        </p>
+        <div class="hero-cta">
+          <a id="btnHeroSimulador" href="./app.html" data-target-tab="calculadora" class="btn btn-primary btn-lg">
+            Abrir Simulador 🚀
+          </a>
+          <a id="btnHeroJuego" href="./app.html?tab=juego#juego" data-target-tab="juego" class="btn btn-outline btn-lg">
+            Jugar Mini-Juego 🎮
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-card" aria-label="Ejemplo de impacto financiero">
+        <h3 style="margin-bottom: 1rem; font-size: 1.1rem;">📉 El efecto invisible en tu bolsillo</h3>
+        <div class="stat-row">
+          <span>☕ Café / Kiosco diario ($2.500)</span>
+          <span class="stat-amount" style="color: #fbbf24;">-$75.000 / mes</span>
+        </div>
+        <div class="stat-row">
+          <span>🛵 2 Deliveries por semana ($6.000)</span>
+          <span class="stat-amount" style="color: #fbbf24;">-$52.000 / mes</span>
+        </div>
+        <div class="stat-row saved">
+          <span>🐷 Ahorro directo en 1 año</span>
+          <span class="stat-amount" style="color: #34d399;">+$1.524.000</span>
+        </div>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.75rem;">
+          *Si además invertís ese ahorro con interés compuesto, tu capital crece de forma exponencial.
+        </p>
+      </div>
+    </section>
+
+    <section class="features">
+      <h2 class="section-title">¿Cómo funciona la plataforma?</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="card-icon">🧮</span>
+          <h3>1. Detectá y Calculá</h3>
+          <p>
+            Cargá tus pequeños gastos diarios o semanales y visualizá al instante cuánto representan al mes y al año.
+          </p>
+        </article>
+        <article class="card">
+          <span class="card-icon">📈</span>
+          <h3>2. Proyectá tu Ahorro</h3>
+          <p>
+            Aplicá Matemática Financiera simulando una tasa de rendimiento anual para ver el poder del interés compuesto.
+          </p>
+        </article>
+        <article class="card">
+          <span class="card-icon">🐷</span>
+          <h3>3. Entrená tus Reflejos</h3>
+          <p>
+            Poné a prueba tu velocidad en el mini-juego de 30 segundos: atrapá los gastos hormiga y llená tu alcancía virtual.
+          </p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Proyecto Educativo "Atrapando Hormigas" • Matemática Financiera y Educación para el Ahorro (PWA Offline Ready)
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

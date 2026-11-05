@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10b981" />
+  <title>Simulador | Atrapando Hormigas</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/svg+xml" href="assets/icon.svg" />
+  <link rel="apple-touch-icon" href="assets/icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container navbar">
+    <a href="index.html" class="brand">
+      <img src="assets/icon.svg" alt="Logo Atrapando Hormigas" />
+      <span>Atrapando Hormigas</span>
+    </a>
+    <div class="nav-actions">
+      <button id="installBtnApp" class="btn btn-outline btn-sm" style="display: none;">
+        📲 Instalar App
+      </button>
+      <a href="index.html" class="btn btn-outline btn-sm">← Inicio</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Selector de Módulos -->
+    <nav class="tabs" aria-label="Módulos del simulador">
+      <button class="tab-btn active" data-tab="calculadora" id="tabBtnCalc">
+        🧮 Calculadora y Proyección
+      </button>
+      <button class="tab-btn" data-tab="juego" id="tabBtnGame">
+        🎮 Mini-Juego (30s)
+      </button>
+    </nav>
+
+    <!-- MÓDULO 1: CALCULADORA DE GASTOS HORMIGA -->
+    <section id="panel-calculadora" class="tab-panel active">
+      <div class="calc-layout">
+        <!-- Panel Izquierdo: Ingreso y Lista -->
+        <div class="card">
+          <h3>Tus Gastos Hormiga</h3>
+          <p>Sumá un gasto rápido o cargá uno personalizado:</p>
+
+          <div class="presets-bar">
+            <button type="button" class="chip" data-name="☕ Café / Alfajor" data-amount="2200" data-freq="20">+ Café/Kiosco ($2.200)</button>
+            <button type="button" class="chip" data-name="🥤 Gaseosa / Jugo" data-amount="1800" data-freq="15">+ Bebida ($1.800)</button>
+            <button type="button" class="chip" data-name="🛵 Recargo Delivery" data-amount="3500" data-freq="6">+ Delivery ($3.500)</button>
+            <button type="button" class="chip" data-name="🎮 Micro-compra / App" data-amount="4500" data-freq="2">+ App/Juego ($4.500)</button>
+          </div>
+
+          <form id="expenseForm" class="form-grid">
+            <div class="form-group">
+              <label for="expName">Concepto</label>
+              <input id="expName" class="input" type="text" placeholder="Ej. Chocolatada" required />
+            </div>
+            <div class="form-group">
+              <label for="expAmount">Costo unitario ($)</label>
+              <input id="expAmount" class="input" type="number" min="1" step="any" placeholder="2000" required />
+            </div>
+            <div class="form-group">
+              <label for="expFreq">Veces al mes</label>
+              <input id="expFreq" class="input" type="number" min="1" max="100" value="12" required />
+            </div>
+            <button type="submit" class="btn btn-primary">Agregar</button>
+          </form>
+
+          <ul id="expenseList" class="expense-list" aria-live="polite"></ul>
+
+          <div style="margin-top: 1rem; display: flex; justify-content: flex-end;">
+            <button id="clearExpensesBtn" type="button" class="btn btn-outline btn-sm">
+              Vaciar lista
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel Derecho: Resultados y Proyección Financiera -->
+        <div class="card">
+          <h3>Proyección de Ahorro</h3>
+          <p style="margin-bottom: 1rem;">Si atrapás y ahorrás estos gastos, este es tu resultado:</p>
+
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <div class="kpi-label">Gasto Hormiga Mensual</div>
+              <div class="kpi-value" id="monthlyTotal">$0</div>
+              <div class="kpi-sub">Dinero que se escapa cada 30 días</div>
+            </div>
+
+            <div class="kpi-box">
+              <div class="kpi-label">Ahorro Directo Anual (12 meses)</div>
+              <div class="kpi-value" id="annualTotal">$0</div>
+              <div class="kpi-sub">Sin invertir ($ Mensual × 12)</div>
+            </div>
+
+            <div class="kpi-box highlight">
+              <div class="kpi-label">Ahorro Invertido a 1 Año (Interés Compuesto)</div>
+              <div class="kpi-value" id="investedTotal">$0</div>
+              <div class="kpi-sub" id="interestEarned">Ganancia por intereses: +$0</div>
+            </div>
+          </div>
+
+          <div class="rate-control">
+            <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+              <label for="annualRate"><strong>Tasa Nominal Anual (TNA) estimada:</strong></label>
+              <span id="rateLabel" style="color: var(--primary); font-weight: 800;">36% anual</span>
+            </div>
+            <input id="annualRate" type="range" min="0" max="80" step="2" value="36" />
+            <small style="color: var(--text-muted); display: block; margin-top: 0.35rem;">
+              Fórmula: capitalización mensual de cuotas constantes <br />
+              <code>VF = Cuota × [((1 + i)^12 - 1) / i] × (1 + i)</code>, donde <code>i = TNA / 12</code>.
+            </small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÓDULO 2: MINI-JUEGO DE 30 SEGUNDOS -->
+    <section id="panel-juego" class="tab-panel">
+      <div class="game-wrapper">
+        <div class="game-hud">
+          <div class="hud-card">
+            <div class="hud-label">⏱️ Tiempo</div>
+            <div class="hud-val" id="gameTime">30s</div>
+          </div>
+          <div class="hud-card">
+            <div class="hud-label">🐷 Alcancía Virtual</div>
+            <div class="hud-val" id="gameSaved" style="color: #34d399;">$0</div>
+          </div>
+          <div class="hud-card">
+            <div class="hud-label">⭐ Puntos</div>
+            <div class="hud-val" id="gamePoints">0</div>
+          </div>
+          <div class="hud-card">
+            <div class="hud-label">🏆 Récord</div>
+            <div class="hud-val" id="gameHighScore">$0</div>
+          </div>
+        </div>
+
+        <div class="game-arena" id="gameArena">
+          <div class="arena-overlay" id="gameOverlay">
+            <h2 id="overlayTitle" style="font-size: 1.8rem; margin-bottom: 0.5rem;">
+              🐜 ¡Atrapá los Gastos Hormiga!
+            </h2>
+            <p id="overlayDesc" style="color: var(--text-muted); max-width: 46ch; margin-bottom: 1.4rem;">
+              Tenés <strong>30 segundos</strong> para tocar todos los gastos impulsivos antes de que desaparezcan y guardar ese dinero en tu alcancía virtual.
+            </p>
+            <button id="startGameBtn" class="btn btn-primary btn-lg">
+              ¡Empezar Juego! ▶
+            </button>
+          </div>
+
+          <div class="piggy-bank" id="piggyBank">
+            🐷 Alcancía lista para ahorrar
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Atrapando Hormigas • Educación Financiera para 5to Año
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
+

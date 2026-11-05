@@ -1,0 +1,21 @@
+{
+  "name": "Atrapando Hormigas - Educación Financiera",
+  "short_name": "Atrapá Hormigas",
+  "description": "Calculadora de gastos hormiga, proyección de ahorro con interés compuesto y mini-juego interactivo de educación financiera.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0f172a",
+  "theme_color": "#10b981",
+  "lang": "es-AR",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
